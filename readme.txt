@@ -1,4 +1,4 @@
-CONNECT FOUR
+Vier Gewinnt
 
 This is a very simple implementation of the game "Connect Four". 
 I do this for my computer science study. The game is written in 

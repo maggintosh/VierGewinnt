@@ -71,7 +71,7 @@ def pvcpu():
 
 def player_1():
     board.insert = int(input("Put a disc, Player 1 >>> "))
-    if board.insert <= int(game.columns):
+    if board.insert in range(int(game.columns)+1):
         i = int(game.rows)-1
         if board.matrix[(i, (int(board.insert)-1))] == board.blank:
             board.matrix[(i, (int(board.insert)-1))] = board.one
@@ -83,14 +83,11 @@ def player_1():
         win_check()
     else:
         print("No way, dude!")
-        two_players()
+        player_1()
 
 def player_2():
     board.insert = int(input("Put a disc, Player 2 >>> "))
-    if board.insert > int(game.columns):
-        print("No way, dude!")
-        two_players()
-    else:
+    if board.insert in range(int(game.columns)+1):
         i = int(game.rows)-1
         if board.matrix[(i, (int(board.insert)-1))] == board.blank:
             board.matrix[(i, (int(board.insert)-1))] = board.two
@@ -100,6 +97,9 @@ def player_2():
             board.matrix[(i, (int(board.insert)-1))] = board.two
         print_board()
         win_check()
+    else:
+        print("No way, dude!")
+        player_2()
      
 def one_player():
     pass
