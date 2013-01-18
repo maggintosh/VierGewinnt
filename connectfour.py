@@ -43,6 +43,7 @@ def blank_board():
         for y in range(int(game.columns)):
             board.matrix[(x, y)] = board.blank
     print_board()
+    game()
 
 def print_board():
     board.one = "|_X_"
@@ -58,10 +59,14 @@ def print_board():
                 table += board.two
         table += "|\n"
     print(table)
-    game()
 
 def two_players():
-    board.insert = int(input("Put a disc >>> "))
+    player_1()
+    player_2()
+    two_players()
+
+def player_1():
+    board.insert = int(input("Put a disc, Player 1 >>> "))
     if board.insert > int(game.columns):
         print("No way, dude!")
         two_players()
@@ -73,7 +78,21 @@ def two_players():
             while board.matrix[(i, (int(board.insert)-1))] != board.blank:
                 i -= 1
             board.matrix[(i, (int(board.insert)-1))] = board.one
-                    
+        print_board()
+
+def player_2():
+    board.insert = int(input("Put a disc, Player 2 >>> "))
+    if board.insert > int(game.columns):
+        print("No way, dude!")
+        two_players()
+    else:
+        i = int(game.rows)-1
+        if board.matrix[(i, (int(board.insert)-1))] == board.blank:
+            board.matrix[(i, (int(board.insert)-1))] = board.two
+        else:
+            while board.matrix[(i, (int(board.insert)-1))] != board.blank:
+                i -= 1
+            board.matrix[(i, (int(board.insert)-1))] = board.two
         print_board()
      
 def one_player():
