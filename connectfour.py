@@ -59,6 +59,9 @@ def print_board():
             elif board.matrix[(x, y)] == board.two:
                 table += board.two
         table += "|\n"
+    for x in range(int(game.columns)):
+        table += "  " + str(x+1) + " "
+    table += "\n"
     print(table)
 
 def pvcpu():
@@ -68,10 +71,7 @@ def pvcpu():
 
 def player_1():
     board.insert = int(input("Put a disc, Player 1 >>> "))
-    if board.insert > int(game.columns):
-        print("No way, dude!")
-        two_players()
-    else:
+    if board.insert <= int(game.columns):
         i = int(game.rows)-1
         if board.matrix[(i, (int(board.insert)-1))] == board.blank:
             board.matrix[(i, (int(board.insert)-1))] = board.one
@@ -81,6 +81,9 @@ def player_1():
             board.matrix[(i, (int(board.insert)-1))] = board.one
         print_board()
         win_check()
+    else:
+        print("No way, dude!")
+        two_players()
 
 def player_2():
     board.insert = int(input("Put a disc, Player 2 >>> "))
@@ -119,17 +122,18 @@ def game():
 def win_check():
     win_vertical()
     win_horizontal()
-    win_diagonal()
+    win_diagonal_down()
+    win_diagonal_up()
 
 def win_vertical():
     for x in range(int(game.rows)):
         for y in range(int(game.columns)):
             try:
                 if board.matrix[(x, y)] == board.one and board.matrix[(x+1, y)] == board.one and board.matrix[(x+2, y)] == board.one and board.matrix[(x+3, y)] == board.one:
-                    print("#####################\n### Player 1 wins ###\n#####################\n")
+                    print("\n###########################\n###### Player 1 wins ######\n###########################\n")
                     new_game()
                 elif board.matrix[(x, y)] == board.two and board.matrix[(x+1, y)] == board.two and board.matrix[(x+2, y)] == board.two and board.matrix[(x+3, y)] == board.two:
-                    print("#####################\n### Player 2 wins ###\n#####################\n")
+                    print("\n###########################\n###### Player 2 wins ######\n###########################\n")
                     new_game()
             except KeyError:
                 pass
@@ -139,24 +143,37 @@ def win_horizontal():
         for y in range(int(game.columns)):
             try:
                 if board.matrix[(x, y)] == board.one and board.matrix[(x, y+1)] == board.one and board.matrix[(x, y+2)] == board.one and board.matrix[(x, y+3)] == board.one:
-                    print("#####################\n### Player 1 wins ###\n#####################\n")
+                    print("\n###########################\n###### Player 1 wins ######\n###########################\n")
                     new_game()
                 elif board.matrix[(x, y)] == board.two and board.matrix[(x, y+1)] == board.two and board.matrix[(x, y+2)] == board.two and board.matrix[(x, y+3)] == board.two:
-                    print("#####################\n### Player 2 wins ###\n#####################\n")
+                    print("\n###########################\n###### Player 2 wins ######\n###########################\n")
                     new_game()
             except KeyError:
                 pass
 
-def win_diagonal():
+def win_diagonal_down():
     for x in range(int(game.rows)):
         for y in range(int(game.columns)):
             try:
                 if board.matrix[(x, y)] == board.one and board.matrix[(x+1, y+1)] == board.one and board.matrix[(x+2, y+2)] == board.one and board.matrix[(x+3, y+3)] == board.one:
-                    print("#####################\n### Player 1 wins ###\n#####################\n")
+                    print("\n###########################\n###### Player 1 wins ######\n###########################\n")
                     new_game()
                 elif board.matrix[(x, y)] == board.two and board.matrix[(x+1, y+1)] == board.two and board.matrix[(x+2, y+2)] == board.two and board.matrix[(x+3, y+3)] == board.two:
-                    print("#####################\n### Player 2 wins ###\n#####################\n")
+                    print("\n###########################\n###### Player 2 wins ######\n###########################\n")
+                    new_game()       
+            except KeyError:
+                pass
+
+def win_diagonal_up():
+    for x in range(int(game.rows)):
+        for y in range(int(game.columns)):
+            try:
+                if board.matrix[(x, y)] == board.one and board.matrix[(x-1, y+1)] == board.one and board.matrix[(x-2, y+2)] == board.one and board.matrix[(x-3, y+3)] == board.one:
+                    print("\n###########################\n###### Player 1 wins ######\n###########################\n")
                     new_game()
+                elif board.matrix[(x, y)] == board.two and board.matrix[(x-1, y+1)] == board.two and board.matrix[(x-2, y+2)] == board.two and board.matrix[(x-3, y+3)] == board.two:
+                    print("\n###########################\n###### Player 2 wins ######\n###########################\n")
+                    new_game()                
             except KeyError:
                 pass
 
